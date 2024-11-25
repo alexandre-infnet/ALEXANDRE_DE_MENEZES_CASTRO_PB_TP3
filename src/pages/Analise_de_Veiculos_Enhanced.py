@@ -1,5 +1,6 @@
-import streamlit as st
 import pandas as pd
+
+import streamlit as st
 
 
 st.set_page_config(
@@ -17,13 +18,16 @@ def load_car_data():
     if "uploaded_df" in st.session_state:
         uploaded_df = st.session_state.uploaded_df
 
-        enchanted_df = pd.merge(
+        enhanced_df = pd.merge(
             uploaded_df,
             cars_df,
             on=["Marca do Carro", "Ano do Carro", "Modelo do Carro"],
             how="inner",
         )
-        return enchanted_df
+
+        enhanced_df.to_csv("src/data/enhanced.csv")
+
+        return enhanced_df
     else:
         st.error("Por favor, faça o upload de um arquivo CSV.")
         return None
@@ -39,7 +43,7 @@ if not car_enchanter:
 if car_enchanter:
     st.session_state.uploaded_df = pd.read_csv(car_enchanter)
 
-    enchanted_df = load_car_data()
+    enhanced_df = load_car_data()
 
-    if enchanted_df is not None:
-        st.write(enchanted_df)
+    if enhanced_df is not None:
+        st.write(enhanced_df)
