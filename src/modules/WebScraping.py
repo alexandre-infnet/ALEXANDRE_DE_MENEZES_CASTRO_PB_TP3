@@ -117,6 +117,7 @@ class CarDataScraper:
         df.to_csv(filename, index=True)
         print(df)
 
+
 if __name__ == "__main__":
     scraper = CarDataScraper()
     scraper.save_to_csv("src/data/cars_data.csv")
